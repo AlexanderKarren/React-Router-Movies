@@ -26,13 +26,13 @@ const MovieList = props => {
     <div className="movie-list">
       {movies.map(movie => {
         if (params.movieID === undefined) {
-          return <MovieCard key={movie.id} movie={movie} />
+          return <MovieCard key={movie.id} movie={movie} addToSavedList={props.addToSavedList}/>
         }
         else {
           console.log(params.movieID);
           console.log(movie.id);
-          if (params.movieID === `${movie.id}`) {
-            return <MovieCard key={movie.id} movie={movie} />
+          if (params.movieID === `${movie.id + 1}`) {
+            return <MovieCard key={movie.id} movie={movie} addToSavedList={props.addToSavedList}/>
           }
         }
       })}

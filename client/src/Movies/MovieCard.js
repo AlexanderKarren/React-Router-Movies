@@ -3,17 +3,10 @@ import React, { useState } from 'react';
 const MovieCard = props => {
   const [movie, setMovie] = useState(props.movie);
 
-  // useEffect(() => {
-  //   const id = params.movieID;
-  //   axios
-  //   .get(`http://localhost:5000/api/movies/${id}`)
-  //   .then(response => {
-  //     setMovie(response.data);
-  //   })
-  //   .catch(error => {
-  //     console.error(error);
-  //   });
-  // },[params.movieID]);
+  const saveMovie = () => {
+      const addToSavedList = props.addToSavedList;
+      addToSavedList(movie)
+    }
 
   const { title, director, metascore, stars } = movie;
   return (
@@ -34,7 +27,7 @@ const MovieCard = props => {
           </div>
         ))}
       </div>
-      <div className="save-button">Save</div>
+      <div className="save-button" onClick={saveMovie}>Save</div>
     </div>
   );
 };

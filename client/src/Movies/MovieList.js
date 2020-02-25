@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import MovieCard from './MovieCard';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const MovieList = props => {
   const [movies, setMovies] = useState([])
+  const params = useParams();
+
   useEffect(() => {
     const getMovies = () => {
       axios
@@ -20,31 +24,18 @@ const MovieList = props => {
   
   return (
     <div className="movie-list">
-      {movies.map(movie => (
-        <MovieDetails key={movie.id} movie={movie} />
-      ))}
-    </div>
-  );
-}
-
-function MovieDetails({ movie }) {
-  const { title, director, metascore, stars } = movie;
-  return (
-    <div className="movie-card">
-      <h2>{title}</h2>
-      <div className="movie-director">
-        Director: <em>{director}</em>
-      </div>
-      <div className="movie-metascore">
-        Metascore: <strong>{metascore}</strong>
-      </div>
-      <h3>Actors</h3>
-
-      {stars.map(star => (
-        <div key={star} className="movie-star">
-          {star}
-        </div>
-      ))}
+      {movies.map(movie => {
+        if (params.movieID === undefined) {
+          return <MovieCard key={movie.id} movie={movie} addToSavedList={props.addToSavedList}/>
+        }
+        else {
+          console.log(params.movieID);
+          console.log(movie.id);
+          if (params.movieID === `${movie.id + 1}`) {
+            return <MovieCard key={movie.id} movie={movie} addToSavedList={props.addToSavedList}/>
+          }
+        }
+      })}
     </div>
   );
 }
